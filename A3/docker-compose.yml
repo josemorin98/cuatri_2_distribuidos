@@ -1,0 +1,194 @@
+version: '3'
+services:
+  preparation:
+    image: preparation
+    build:
+      context: ./preparation
+      dockerfile: ./Dockerfile
+    ports:
+      - 560:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221:570
+
+  loadbalance_k:
+    image: loadbalance_k
+    build:
+      context: ./loadbalance_k
+      dockerfile: ./Dockerfile
+    ports:
+      - 570:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app_k.py 3 148.247.201.221 570
+
+  W_570balance_data_work_0:
+    image: balance_data
+    build:
+      context: ./balance_data
+      dockerfile: ./Dockerfile
+    ports:
+      - 5700:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 3 148.247.201.221 5700 D TC
+
+  W_5700clustering_work_0:
+    image: clustering
+    build:
+      context: ./clustering
+      dockerfile: ./Dockerfile
+    ports:
+      - 57000:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221 57000 Kmeans
+
+  W_5700clustering_work_1:
+    image: clustering
+    build:
+      context: ./clustering
+      dockerfile: ./Dockerfile
+    ports:
+      - 57001:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221 57001 Kmeans
+
+  W_5700clustering_work_2:
+    image: clustering
+    build:
+      context: ./clustering
+      dockerfile: ./Dockerfile
+    ports:
+      - 57002:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221 57002 Kmeans
+
+
+  W_570balance_data_work_1:
+    image: balance_data
+    build:
+      context: ./balance_data
+      dockerfile: ./Dockerfile
+    ports:
+      - 5701:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 3 148.247.201.221 5701 D TC
+
+  W_5701clustering_work_0:
+    image: clustering
+    build:
+      context: ./clustering
+      dockerfile: ./Dockerfile
+    ports:
+      - 57010:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221 57010 Kmeans
+
+  W_5701clustering_work_1:
+    image: clustering
+    build:
+      context: ./clustering
+      dockerfile: ./Dockerfile
+    ports:
+      - 57011:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221 57011 Kmeans
+
+  W_5701clustering_work_2:
+    image: clustering
+    build:
+      context: ./clustering
+      dockerfile: ./Dockerfile
+    ports:
+      - 57012:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221 57012 Kmeans
+
+
+  W_570balance_data_work_2:
+    image: balance_data
+    build:
+      context: ./balance_data
+      dockerfile: ./Dockerfile
+    ports:
+      - 5702:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 3 148.247.201.221 5702 D TC
+
+  W_5702clustering_work_0:
+    image: clustering
+    build:
+      context: ./clustering
+      dockerfile: ./Dockerfile
+    ports:
+      - 57020:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221 57020 Kmeans
+
+  W_5702clustering_work_1:
+    image: clustering
+    build:
+      context: ./clustering
+      dockerfile: ./Dockerfile
+    ports:
+      - 57021:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221 57021 Kmeans
+
+  W_5702clustering_work_2:
+    image: clustering
+    build:
+      context: ./clustering
+      dockerfile: ./Dockerfile
+    ports:
+      - 57022:5000
+    networks:
+      - clus_net
+    volumes:
+      - /home/jmorin/A3/Files/:/app/data/
+    command: python /app/app.py 148.247.201.221 57022 Kmeans
+
+
+
+
+
+
+
+networks:
+  clus_net:

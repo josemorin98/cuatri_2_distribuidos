@@ -1,0 +1,53 @@
+[PRE]
+name = preparation
+images = preparation
+context: ./preparation
+dockerfile: ./Dockerfile
+ports: 560
+volumes: /home/jmorin/A3/Files/:/app/data/
+ip: 148.247.201.221:570
+cmd: python /app/app.py
+
+[LOADBALANCEK]
+name = loadbalance_k
+images = loadbalance_k
+context: ./loadbalance_k
+dockerfile: ./Dockerfile
+ip: 148.247.201.221
+ports: 570
+volumes: /home/jmorin/A3/Files/:/app/data/
+workers: 3
+type: BALANCE_DATA_Y
+cmd: python /app/app_k.py
+
+[BALANCE_DATA_Y]
+name = balance_data
+images = balance_data
+context: ./balance_data
+dockerfile: ./Dockerfile
+ip: 148.247.201.221
+volumes: /home/jmorin/A3/Files/:/app/data/
+workers: 3
+params: D TC
+type: CLUSTERING
+cmd: python /app/app.py
+
+[CLUSTERING]
+name = clustering
+images = clustering
+context: ./clustering
+dockerfile: ./Dockerfile
+ip: 148.247.201.221
+volumes: /home/jmorin/A3/Files/:/app/data/
+params: Kmeans
+cmd: python /app/app.py
+
+[CLUSTERING2]
+name = clustering
+images = clustering
+context: ./clustering
+dockerfile: ./Dockerfile
+ip: 148.247.201.221
+volumes: /home/jmorin/A3/Files/:/app/data/
+params: GM
+cmd: python /app/app.py
